@@ -38,3 +38,13 @@ we can write name of file or folder in .gitignore file
 To create version/commit all changes to git
 ..
 git commit -m "message" 
+
+to push changes to github
+..
+git push origin main
+..
+
+to check remote url:
+..
+git remote -v
+..
