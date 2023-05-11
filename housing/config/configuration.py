@@ -22,14 +22,59 @@ class Configuartion:
             raise HousingException(e,sys) from e
         
         
-    def get_data_ingestion_config()->DataIngestionConfig :
-        pass
+    def get_data_ingestion_config(self)->DataIngestionConfig :
+        try:
+            
+            data_ingestion_info = self.config_info[DATA_INGESTION_CONFIG_KEY]
+            
+            artifact_dir = self.training_pipeline_config.artifact_dir
+            
+            data_ingestion_artifact_dir = os.path.join(artifact_dir,
+                                                       DATA_INGESTION_ARTIFACT_DIR,
+                                                       self.time_stamp)
+            
+            raw_data_dir = os.path.join(data_ingestion_artifact_dir,
+                                        data_ingestion_info[DATA_INGESTION_RAW_DATA_DIR_KEY]
+                                        )
+            
+           
+            tgz_download_dir = os.path.join(data_ingestion_artifact_dir,
+                                            data_ingestion_info[DATA_INGESTION_TGZ_DOWNLOAD_DIR_KEY])
+            
+            
+            ingested_data_dir = os.path.join(data_ingestion_artifact_dir,
+                                                       data_ingestion_info[DATA_INGESTION_INGESTED_DIR_NAME_KEY])
+            
+            #test data dir is inside the ingested data dir 
+            ingested_test_dir = os.path.join(ingested_data_dir,
+                                             data_ingestion_info[DATA_INGESTION_TEST_DIR_KEY])
+            
+            #train folder is inside the ingested test 
+            ingested_train_dir = os.path.join(ingested_data_dir,
+                                              data_ingestion_info[DATA_INGESTION_TRAIN_DIR_KEY])
+            
+            dataset_download_url = data_ingestion_info[DATA_INGESTION_DOWNLOAD_URL_KEY]
+            
+            data_ingestion_config = DataIngestionConfig(
+                dataset_download_url,
+                tgz_download_dir,
+                raw_data_dir,
+                ingested_train_dir,
+                ingested_test_dir
+                
+            )
+            logging.info(f"data ingestion config :{data_ingestion_config}")
+            return data_ingestion_config
+        except Exception as e:
+            raise HousingException(e,sys) from e
+            
     
-    def get_data_transformation_config()->DataTransformationConfig:
+    def get_data_transformation_config(self)->DataTransformationConfig:
         pass
+        
     
-    def get_validation_config()->DataValidationConfig:
-        pass
+    def get_validation_config(self)->DataValidationConfig:
+            pass
     
     def get_model_trainer_config()->ModelTrainerConfig:
         pass
