@@ -22,4 +22,35 @@ class Configuartion:
             raise HousingException(e,sys) from e
         
         
+    def get_data_ingestion_config()->DataIngestionConfig :
+        pass
+    
+    def get_data_transformation_config()->DataTransformationConfig:
+        pass
+    
+    def get_validation_config()->DataValidationConfig:
+        pass
+    
+    def get_model_trainer_config()->ModelTrainerConfig:
+        pass
+    
+    def get_model_evaluation_config()->ModelEvaluationConfig:
+        pass
+    
+    def get_model_pusher_config()->ModelPusherConfig:
+        pass
+    
+    def get_training_pipeline_config(self)->TrainingPipelineConfig:
         
+        try:
+            training_pipeline_config = self.config_info[TRAINING_PIPELINE_CONFIG_KEY]
+            artifact_dir = os.path.join(ROOT_DIR,
+                                        training_pipeline_config[TRAINING_PIPELINE_NAME_KEY],
+                                        training_pipeline_config[TRAINING_PIPELINE_ARTIFACT_DIR_KEY])
+            logging.info(f'training pipeline config : {training_pipeline_config}')
+            
+            return training_pipeline_config
+        except Exception as e:
+            raise HousingException(e,sys) from e
+            
+    
