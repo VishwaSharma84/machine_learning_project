@@ -1,2 +1,18 @@
-from housing.exception import HousingException
-print("my exception class")
+from housing.pipeline.pipeline import Pipeline
+from housing.logger import logging
+from housing.config.configuration import Configuartion
+
+def main():
+    try:
+        pipeline = Pipeline()
+        pipeline.run_pipeline()
+        # data_transformation_config = Configuartion().get_data_transformation_config()
+        # print(data_transformation_config)
+        
+    except Exception as e:
+        logging.info(f"{e}")
+        print(e)
+    
+    
+if __name__ == "__main__":
+    main()

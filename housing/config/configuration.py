@@ -94,10 +94,10 @@ class Configuartion:
                                                          data_transfromation_config_info[DATA_TRANSFORMATION_PREPROCESSED_FILE_NAME_KEY])
             
             data_transfromation_config = DataTransformationConfig(
-                                            add_bedroom_per_room,
-                                            transformed_train_dir,
-                                            transformed_test_dir,
-                                            preprocessed_object_file_path
+                                            add_bedroom_per_room = add_bedroom_per_room,
+                                            transformed_train_dir = transformed_train_dir,
+                                            transformed_test_dir = transformed_test_dir,
+                                            preprocessed_object_file_path=preprocessed_object_file_path
                                         )
             logging.info(f"data transformation config: {data_transfromation_config}")
             
@@ -109,7 +109,7 @@ class Configuartion:
 
         
     
-    def get_validation_config(self)->DataValidationConfig:
+    def get_data_validation_config(self)->DataValidationConfig:
         try:
             data_validation_config_info = self.config_info[DATA_VALIDATION_CONFIG_KEY]
             artifact_dir = self.training_pipeline_config.artifact_dir
@@ -117,7 +117,7 @@ class Configuartion:
                                                         DATA_VALIDATION_ARTIFACT_DIR_NAME,
                                                         self.time_stamp)
             
-            schema_file_path = os.path.join(data_validation_artifact_dir,
+            schema_file_path = os.path.join(ROOT_DIR,
                                             data_validation_config_info[DATA_VALIDATION_SCHEMA_DIR_KEY],
                                             data_validation_config_info[DATA_VALIDATION_SCHEMA_FILE_NAME_KEY])
             
